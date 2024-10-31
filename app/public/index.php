@@ -16,8 +16,9 @@
    $action = isset($_GET["action"]) ? $_GET["action"]: "list";
 
 
-    // Verifica o tipo de ação a ser executada dependendo valor de action
+    // Verifica qual o controller está definida
     switch ($controller) {
+        // Caso a controller seja questão
         case 'questao':
                 if($action == "list"):
                     // Listar as questoes
@@ -53,12 +54,15 @@
                     endif;
                 endif;        
             break;
-        // Caso o valor do controlador USUARIO seja paasado na URL    
+
+        // Caso o controller seja USUARIO
         case 'usuario':
             if ($action == 'list'):
                 // Lista os usuários
                 $usuarios = $controllerUsuario->listaUsuarios();
-            elseif ($action == 'create'):
+
+            elseif ($action == 'create'): // Ação de cadastro
+                // Chama o metodo de cadastro da controller
                 $controllerUsuario->cadastro();
             endif;
             break;
