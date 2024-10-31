@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `avaliacao_integrada`.`alunos` (
   `status` ENUM('Ativo', 'Inativo', 'Trancado', 'Concluído') NOT NULL DEFAULT 'Ativo',
   `curso_id` INT NOT NULL,
   `turma_id` INT NOT NULL,
-  PRIMARY KEY (`idalunos`),
+  PRIMARY KEY (`id`),
   INDEX `usuario_id_idx` (`usuario_id` ASC),
   UNIQUE INDEX `matricula_UNIQUE` (`matricula` ASC),
   INDEX `curso_id_idx` (`curso_id` ASC),
@@ -194,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `avaliacao_integrada`.`questoes` (
     ON UPDATE NO ACTION,
   CONSTRAINT `professo`
     FOREIGN KEY (`professor_id`)
-    REFERENCES `avaliacao_integrada`.`professores` (`idprofessores`)
+    REFERENCES `avaliacao_integrada`.`professores` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -246,7 +246,7 @@ CREATE TABLE IF NOT EXISTS `avaliacao_integrada`.`questoes_respondidas` (
   INDEX `ques_idx` (`questao_id` ASC),
   CONSTRAINT `alu`
     FOREIGN KEY (`aluno_id`)
-    REFERENCES `avaliacao_integrada`.`alunos` (`idalunos`)
+    REFERENCES `avaliacao_integrada`.`alunos` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `pro`
