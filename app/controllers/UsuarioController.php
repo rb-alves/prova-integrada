@@ -30,7 +30,7 @@
                 $this->usuario->setEmail($_POST["email"]);
                 $this->usuario->setPerfil($_POST["perfil"]);
                 $this->usuario->setTelefone($_POST["telefone"]);
-                $this->usuario->setSenha($this->funcoes->gerarSenha($_POST["nome"], $_POST["cpf"]));
+                $this->usuario->setSenha(password_hash($this->funcoes->gerarSenha($_POST["nome"], $_POST["cpf"]), PASSWORD_DEFAULT));
 
                 // Chama o metodo CADASTRAR para armazenar os dados no banco de dados
                 $this->usuario->cadastrar();
@@ -64,7 +64,7 @@
                 $this->usuario->setTelefone($_POST["telefone"]);
 
                 // Chama o metodo ATUALIZAR para armazenar os dados no banco de dados
-                $usuario->atualizar();
+                $this->usuario->atualizar();
 
                 // Retorna para a lista de questões
                 header("Location: ../public/index.php");
