@@ -7,7 +7,7 @@
         private $host = "localhost";
         private $port = "3306";
         private $user = "root";
-        private $password = "";
+        private $password = "mdf@123!";
         private $dbname = "avaliacao_integrada";
         private $conn;
 
