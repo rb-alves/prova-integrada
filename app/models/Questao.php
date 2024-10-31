@@ -139,114 +139,143 @@
 
         // Cadastra uma nova questão no banco de dados
         public function cadastrar(){
-            // Define a query
-            $query = "INSERT INTO $this->nomeTabela
-                    (enunciado, opcao_a, opcao_b, opcao_c, opcao_d, opcao_e, resposta, nivel_dificuldade, disciplina_id, usuario_id, data_criacao)
-                    VALUES
-                    (:enunciado, :opcao_a, :opcao_b, :opcao_c, :opcao_d, :opcao_e, :resposta, :nivel, :disciplina, :usuario, :data_criacao);";
-            
-            // Prepara a query para ser executada;
-            $stmt = $this->conn->prepare($query);
+            try{
+                // Define a query
+                $query = "INSERT INTO $this->nomeTabela
+                        (enunciado, opcao_a, opcao_b, opcao_c, opcao_d, opcao_e, resposta, nivel_dificuldade, disciplina_id, usuario_id, data_criacao)
+                        VALUES
+                        (:enunciado, :opcao_a, :opcao_b, :opcao_c, :opcao_d, :opcao_e, :resposta, :nivel, :disciplina, :usuario, :data_criacao);";
+                
+                // Prepara a query para ser executada;
+                $stmt = $this->conn->prepare($query);
 
-            // Define as variaveis na query
-            $stmt->bindParam(":enunciado", $this->enunciado);
-            $stmt->bindParam(":opcao_a", $this->opcao_a);
-            $stmt->bindParam(":opcao_b", $this->opcao_b);
-            $stmt->bindParam(":opcao_c", $this->opcao_c);
-            $stmt->bindParam(":opcao_d", $this->opcao_d);
-            $stmt->bindParam(":opcao_e", $this->opcao_e);
-            $stmt->bindParam(":resposta", $this->resposta);
-            $stmt->bindParam(":nivel", $this->nivel);
-            $stmt->bindParam(":disciplina", $this->disciplina);
-            $stmt->bindParam(":usuario", $this->usuario);
-            $stmt->bindParam(":data_criacao", $this->data_criacao);
+                // Define as variaveis na query
+                $stmt->bindParam(":enunciado", $this->enunciado);
+                $stmt->bindParam(":opcao_a", $this->opcao_a);
+                $stmt->bindParam(":opcao_b", $this->opcao_b);
+                $stmt->bindParam(":opcao_c", $this->opcao_c);
+                $stmt->bindParam(":opcao_d", $this->opcao_d);
+                $stmt->bindParam(":opcao_e", $this->opcao_e);
+                $stmt->bindParam(":resposta", $this->resposta);
+                $stmt->bindParam(":nivel", $this->nivel);
+                $stmt->bindParam(":disciplina", $this->disciplina);
+                $stmt->bindParam(":usuario", $this->usuario);
+                $stmt->bindParam(":data_criacao", $this->data_criacao);
 
-            // Executa a query
-            $stmt->execute();            
+                // Executa a query
+                $stmt->execute();            
+            } catch (PDOExpection $e) {
+                $erro = $e->getMessage();
+                echo "Erro ao cadastrar a questão: " . $erro;
+            }
         }
 
 
         // Exibe todas as questões cadastradas na tabela
         public function exibir(){
-            // Define a query
-            $query = "SELECT * FROM $this->nomeTabela;";
+            try {
+                // Define a query
+                $query = "SELECT * FROM $this->nomeTabela;";
 
-            // Prepara a query para ser executada;
-            $stmt = $this->conn->prepare($query);
+                // Prepara a query para ser executada;
+                $stmt = $this->conn->prepare($query);
 
-            // Executa a query
-            $stmt->execute();
-            
-            // Transform o objeto retornado da query em um Array
-            $Allregistros = $stmt->fetchAll();
+                // Executa a query
+                $stmt->execute();
+                
+                // Transform o objeto retornado da query em um Array
+                $Allregistros = $stmt->fetchAll();
 
-            // Retorna o Array
-            return $Allregistros;
+                // Retorna o Array
+                return $Allregistros;
+
+            } catch (PDOExpection $th) {
+                $erro = $e->getMessage();
+                echo "Erro ao exibir questões: " . $erro;
+            }
         }
 
         // Exibe uma questão buscada por ID especifico
         public function buscaQuestaoId($id){
-            // Define a query
-            $query = "SELECT * FROM $this->nomeTabela
-                      WHERE id = $id;";
+            try {
+                // Define a query
+                $query = "SELECT * FROM $this->nomeTabela
+                WHERE id = :id;";
 
-            // Prepara a query para ser executada;
-            $stmt = $this->conn->prepare($query);
+                // Prepara a query para ser executada;
+                $stmt = $this->conn->prepare($query);
 
-            // Executa a query
-            $stmt->execute();
+                // Define a variavel na query
+                $stmt->bindParam(":id", $id);
 
-            // Tranforma o objeto retornado da query em um array com um unico item
-            $OnlyQuestao = $stmt->fetch();
+                // Executa a query
+                $stmt->execute();
 
-            // Retorna o registro
-            return $OnlyQuestao;
+                // Tranforma o objeto retornado da query em um array com um unico item
+                $OnlyQuestao = $stmt->fetch();
+
+                // Retorna um unico registro
+                return $OnlyQuestao;
+            } catch (PDOException $e) {
+                $erro = $e->getMessage();
+                echo "Erro ao buscar a questão: " . $erro;
+            }
         }
 
 
         // Edita uma questão cadastrada na Tabela
         public function atualizar(){
-            // Define a query
-            $query = "UPDATE $this->nomeTabela SET
-                    enunciado = :enunciado, opcao_a = :opcao_a, opcao_b = :opcao_b, opcao_c = :opcao_c, opcao_d = :opcao_d, opcao_e = :opcao_e,
-                    resposta = :resposta, nivel_dificuldade = :nivel, disciplina_id = :disciplina, usuario_id = :usuario, data_criacao = :data_criacao
-                    WHERE id = :id;";
-            
-            // Prepara a query para ser executada
-            $stmt = $this->conn->prepare($query);
+            try{
+                // Define a query
+                $query = "UPDATE $this->nomeTabela SET
+                        enunciado = :enunciado, opcao_a = :opcao_a, opcao_b = :opcao_b, opcao_c = :opcao_c, opcao_d = :opcao_d, opcao_e = :opcao_e,
+                        resposta = :resposta, nivel_dificuldade = :nivel, disciplina_id = :disciplina, usuario_id = :usuario, data_criacao = :data_criacao
+                        WHERE id = :id;";
+                
+                // Prepara a query para ser executada
+                $stmt = $this->conn->prepare($query);
 
-            // Define as variaveis na query
-            $stmt->bindParam(":enunciado", $this->enunciado);
-            $stmt->bindParam(":opcao_a", $this->opcao_a);
-            $stmt->bindParam(":opcao_b", $this->opcao_b);
-            $stmt->bindParam(":opcao_c", $this->opcao_c);
-            $stmt->bindParam(":opcao_d", $this->opcao_d);
-            $stmt->bindParam(":opcao_e", $this->opcao_e);
-            $stmt->bindParam(":resposta", $this->resposta);
-            $stmt->bindParam(":nivel", $this->nivel);
-            $stmt->bindParam(":disciplina", $this->disciplina);
-            $stmt->bindParam(":usuario", $this->usuario);
-            $stmt->bindParam(":data_criacao", $this->data_criacao);
-            $stmt->bindParam(":id", $this->id);
+                // Define as variaveis na query
+                $stmt->bindParam(":enunciado", $this->enunciado);
+                $stmt->bindParam(":opcao_a", $this->opcao_a);
+                $stmt->bindParam(":opcao_b", $this->opcao_b);
+                $stmt->bindParam(":opcao_c", $this->opcao_c);
+                $stmt->bindParam(":opcao_d", $this->opcao_d);
+                $stmt->bindParam(":opcao_e", $this->opcao_e);
+                $stmt->bindParam(":resposta", $this->resposta);
+                $stmt->bindParam(":nivel", $this->nivel);
+                $stmt->bindParam(":disciplina", $this->disciplina);
+                $stmt->bindParam(":usuario", $this->usuario);
+                $stmt->bindParam(":data_criacao", $this->data_criacao);
+                $stmt->bindParam(":id", $this->id);
 
-            // Executa a query
-            $stmt->execute();           
+                // Executa a query
+                $stmt->execute();
+            } catch (PDOExpection $e){
+                $erro = $e->getMessage();
+                echo "Erro ao editar a questão: " . $erro;
+            }
         }
 
 
-            // Realiza a exclusão de uma questão da tabela
-            public function deletar(){
-            // Define a query
-            $query = "DELETE FROM $this->nomeTabela
-            WHERE id = :id";
+        // Realiza a exclusão de uma questão da tabela
+        public function deletar(){
+            try{
+                // Define a query
+                $query = "DELETE FROM $this->nomeTabela
+                WHERE id = :id";
 
-            // Prepara a query para ser executa
-            $stmt = $this->conn->prepare($query);
+                // Prepara a query para ser executa
+                $stmt = $this->conn->prepare($query);
 
-            // Define as variaveis na query
-            $stmt->bindParam(":id", $this->id);
+                // Define as variaveis na query
+                $stmt->bindParam(":id", $this->id);
 
-            // Executa a query
-            return $stmt->execute();
-            }       
+                // Executa a query
+                return $stmt->execute();
+            } catch (PDOExpection $e){
+                $erro = $e->getMessage();
+                echo "Erro ao excluir a questão: " . $erro;
+            }
+        }       
     }
