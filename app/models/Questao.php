@@ -142,9 +142,9 @@
             try{
                 // Define a query
                 $query = "INSERT INTO $this->nomeTabela
-                        (enunciado, opcao_a, opcao_b, opcao_c, opcao_d, opcao_e, resposta, nivel_dificuldade, disciplina_id, usuario_id, data_criacao)
+                        (enunciado, opcao_a, opcao_b, opcao_c, opcao_d, opcao_e, resposta, nivel_dificuldade, disciplina_id, professor_id, data_hora_criacao)
                         VALUES
-                        (:enunciado, :opcao_a, :opcao_b, :opcao_c, :opcao_d, :opcao_e, :resposta, :nivel, :disciplina, :usuario, :data_criacao);";
+                        (:enunciado, :opcao_a, :opcao_b, :opcao_c, :opcao_d, :opcao_e, :resposta, :nivel, :disciplina, :usuario, :data_hora_criacao);";
                 
                 // Prepara a query para ser executada;
                 $stmt = $this->conn->prepare($query);
@@ -160,7 +160,7 @@
                 $stmt->bindParam(":nivel", $this->nivel);
                 $stmt->bindParam(":disciplina", $this->disciplina);
                 $stmt->bindParam(":usuario", $this->usuario);
-                $stmt->bindParam(":data_criacao", $this->data_criacao);
+                $stmt->bindParam(":data_hora_   criacao", $this->data_criacao);
 
                 // Executa a query
                 $stmt->execute();            

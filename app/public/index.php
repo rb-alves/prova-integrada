@@ -2,29 +2,28 @@
     // Faz a inclusão do header
     include "header.php";
 
-    // Inclui o controlador de QUESTÕES
+    // Inclui o controladores
     require_once "../controllers/QuestaoController.php";
+    require_once "../controllers/UsuarioController.php";
 
-    // Criar uma instância do controlador QUESTÃO
-    $controller = new QuestaoController();
+    // Cria instancias dos controllers
+    $controllerQuestao = new QuestaoController();
+    $controllerUsuario = new UsuarioController();
 
 
     // Verifica se algum action foi passado na URL caso não ele é definido como LIST por padrão
-    if(isset($_GET["action"])):
-        $action = $_GET["action"];
-    else:
-        $action = "list";
-    endif;
+   $controller = isset($_GET["controller"]) ? $_GET["controller"] : "questao";
+   $action = isset($_GET["action"]) ? $_GET["action"]: "list";
 
 
     // Verifica o tipo de ação a ser executada dependendo valor de action
     if($action == "list"):
         // Listar os usuários
-        $questoes = $controller->listaQuestoes();
+        $questoes = $controllerQuestao->listaQuestoes();
     
     elseif ($action == "create"): // Ação de cadastro
         // Chama o metodo de cadastro da controller
-        $controller->cadastro();
+        $controllerQuestao->cadastro();
 
     elseif ($action == "edit"): // Ação de Edição
 
