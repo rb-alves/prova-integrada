@@ -52,10 +52,10 @@
                         <td>$professor</td>
                         <td>$data_hora_criacao</td>
                         <td>
-                            <a href='../public/index.php?action=edit&id=".$id."'>$id</a>
+                            <a href='../public/index.php?controller=questao&action=edit&id=".$id."'>Editar</a>
                         </td>
                         <td>
-                            <a href='../public/index.php?action=del&id=".$id."'>$id</a>
+                            <a href='../public/index.php?controller=questao&action=del&id=".$id."'>Deletar</a>
                         </td>
                     </tr>
                     ";

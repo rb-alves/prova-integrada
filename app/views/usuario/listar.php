@@ -13,6 +13,7 @@
             <th scope="col">Telefone</th>
             <th scope="col">Senha</th>
             <th scope="col">Perfil</th>
+            <th scope="col">Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -35,6 +36,9 @@
                         <td>$telefone</td>
                         <td>$senha</td>
                         <td>$perfil</td>
+                        <td>
+                            <a hred='../public/index.php?' ></a>
+                        </td>
                     </tr>
                     ";
                 }
