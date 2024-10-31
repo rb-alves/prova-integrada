@@ -32,7 +32,7 @@
                 $this->questao->setResposta($_POST['resposta']);
                 $this->questao->setNivel($_POST['nivel_dificuldade']);
                 $this->questao->setDisciplina($_POST['disciplina']);
-                $this->questao->setUsuario($_POST['usuario']);
+                $this->questao->setProfessor($_POST['professor']);
                 $this->questao->setData($_POST['data_criacao']);
 
                 // Chama o metodo CADASTRAR para registrar os dados no banco
@@ -63,7 +63,7 @@
                 $this->questao->setResposta($_POST['resposta']);
                 $this->questao->setNivel($_POST['nivel_dificuldade']);
                 $this->questao->setDisciplina($_POST['disciplina']);
-                $this->questao->setUsuario($_POST['usuario']);
+                $this->questao->setProfessor($_POST['professor']);
                 $this->questao->setData($_POST['data_criacao']);
 
                 // Chama o metodo ATUALIZAR para editar os dados no banco

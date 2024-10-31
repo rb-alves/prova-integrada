@@ -36,7 +36,7 @@
                 header("Location: ../public/index.php");
             }else{
                 // Inclui o formulário de cadastro na pagina
-                include "..views/usuario/criar.php";
+                include "../views/usuario/criar.php";
             }
         }
 

@@ -1,5 +1,5 @@
 <div>
-    <a href="#">Lista de Usuários</a>
+    <a href="../public/index.php?controller=usuario">Lista de Usuários</a>
 </div>
 
 <form action="#" method="POST">

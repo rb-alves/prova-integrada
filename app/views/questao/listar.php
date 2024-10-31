@@ -14,8 +14,8 @@
             <th scope="col">Resposta</th>
             <th scope="col">Nivel</th>
             <th scope="col">Disciplina</th>
-            <th scope="col">Usuario</th>
-            <th scope="col">Data Criação</th>
+            <th scope="col">Professor</th>
+            <th scope="col">Criação</th>
             <th scope="col">Editar</th>
             <th scope="col">Excluir</th>
         </tr>
@@ -35,8 +35,8 @@
                     $resposta = $questao["resposta"];
                     $nivel_dificuldade = $questao["nivel_dificuldade"];
                     $disciplina = $questao["disciplina_id"];
-                    $usuario = $questao["usuario_id"];
-                    $data_criacao = $questao["data_criacao"];
+                    $professor = $questao["professor_id"];
+                    $data_hora_criacao = $questao["data_hora_criacao"];
 
                     echo "
                     <tr>
@@ -49,8 +49,8 @@
                         <td>$resposta</td>
                         <td>$nivel_dificuldade</td>
                         <td>$disciplina</td>
-                        <td>$usuario</td>
-                        <td>$data_criacao</td>
+                        <td>$professor</td>
+                        <td>$data_hora_criacao</td>
                         <td>
                             <a href='../public/index.php?action=edit&id=".$id."'>$id</a>
                         </td>

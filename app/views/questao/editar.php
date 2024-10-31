@@ -42,12 +42,12 @@
         <input type="text" id="disciplina" name="disciplina" value="<?=$questao['disciplina_id']?>">
     </div>
     <div>
-        <label for="usuario">Usuário</label>
-        <input type="text" id="usuario" name="usuario" value="<?=$questao['usuario_id']?>">
+        <label for="professor">Professor</label>
+        <input type="text" id="professor" name="professor" value="<?=$questao['professor_id']?>">
     </div>
     <div>
         <label for="data_criacao">Data Criação</label>
-        <input type="text" id="data_criacao" name="data_criacao" value="<?=$questao['data_criacao']?>">
+        <input type="text" id="data_criacao" name="data_criacao" value="<?=$questao['data_hora_criacao']?>">
     </div>
 
     <input type="submit" Value="Enviar">

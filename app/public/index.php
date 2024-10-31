@@ -17,41 +17,56 @@
 
 
     // Verifica o tipo de ação a ser executada dependendo valor de action
-    if($action == "list"):
-        // Listar os usuários
-        $questoes = $controllerQuestao->listaQuestoes();
+    switch ($controller) {
+        case 'questao':
+                if($action == "list"):
+                    // Listar as questoes
+                    $questoes = $controllerQuestao->listaQuestoes();
+                
+                elseif ($action == "create"): // Ação de cadastro
+                    // Chama o metodo de cadastro da controller
+                    $controllerQuestao->cadastro();
+            
+                elseif ($action == "edit"): // Ação de Edição
+            
+                    if(isset($_GET['id'])):
+                        // Atribui o ID  a uma variavel
+                        $id = $_GET['id'];
+            
+                        // Chama o metodo de edição da controller
+                        $controllerQuestao->edicao($id);
+                    else:
+                        // Caso o ID não seja definido na URL
+                        echo "ID da questão não foi definido";
+                    endif;
+                
+                elseif ($action == "del"): // Ação Delete
+                    if(isset($_GET['id'])):
+                        // Atribui o ID a uma variavel
+                        $id = $_GET['id'];
+            
+                        // Chama o metodo de deletar da controller
+                        $controllerQuestao->apagar($id);
+                    else:
+                        // Caso o ID não seja definido na URL
+                        echo "ID da questão não foi definido";
+                    endif;
+                endif;        
+            break;
+        // Caso o valor do controlador USUARIO seja paasado na URL    
+        case 'usuario':
+            if ($action == 'list'):
+                // Lista os usuários
+                $usuarios = $controllerUsuario->listaUsuarios();
+            elseif ($action == 'create'):
+                $controllerUsuario->cadastro();
+            endif;
+            break;
+        default:
+            # code...
+            break;
+    }
     
-    elseif ($action == "create"): // Ação de cadastro
-        // Chama o metodo de cadastro da controller
-        $controllerQuestao->cadastro();
-
-    elseif ($action == "edit"): // Ação de Edição
-
-        if(isset($_GET['id'])):
-            // Atribui o ID  a uma variavel
-            $id = $_GET['id'];
-
-            // Chama o metodo de edição da controller
-            $controller->edicao($id);
-        else:
-            // Caso o ID não seja definido na URL
-            echo "ID da questão não foi definido";
-        endif;
-    
-    elseif ($action == "del"): // Ação Delete
-        if(isset($_GET['id'])):
-            // Atribui o ID a uma variavel
-            $id = $_GET['id'];
-
-            // Chama o metodo de deletar da controller
-            $controller->apagar($id);
-        else:
-            // Caso o ID não seja definido na URL
-            echo "ID da questão não foi definido";
-        endif;
-
-    endif;
-
 
 
     // Faz a inclusão do footer

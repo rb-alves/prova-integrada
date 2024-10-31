@@ -42,8 +42,8 @@
         <input type="text" id="disciplina" name="disciplina">
     </div>
     <div>
-        <label for="usuario">Usuário</label>
-        <input type="text" id="usuario" name="usuario">
+        <label for="professor">Professor</label>
+        <input type="text" id="professor" name="professor">
     </div>
     <div>
         <label for="data_criacao">Data Criação</label>
