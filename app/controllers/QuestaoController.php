@@ -5,7 +5,7 @@
     class QuestaoController {
         private $questao; // Objeto da classe Questão
 
-        // Construtor usado para instanciar a classe QUESTÃO que seráultlizada pelos metodos
+        // Construtor usado para instanciar a classe QUESTÃO que será ultlizada pelos metodos
         public function __construct(){
             $this->questao = new Questao;
         }

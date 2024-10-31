@@ -6,7 +6,7 @@
     // Cria a classe USUARIO para realizar as 4 operações de CRUD no banco de dados
     class Usuario {
         // Declara os atributos
-        private $id, $nome, $cpf, $email, $senha, $perfil;
+        private $id, $nome, $cpf, $email, $senha, $perfil, $telefone;
         private $nomeTabela = "usuarios";
         private $conn;
 
@@ -65,6 +65,14 @@
             return $this->id;
         }
 
+        public function setTelefone($telefone){
+            $this->telefone = $telefone;
+        }
+
+        public function getTelefone(){
+            return $this->telefone;
+        }
+
         // Cria um construtor para que toda vez que a classe USUARIO seja instaciada uma conexão seja gerada
         public function __construct(){
             $conexao = new Conexao();
@@ -73,11 +81,12 @@
 
         // Cria um novo usuário
         public function cadastrar(){
+            try {
             // Define a query
             $query = "INSERT INTO " . $this->nomeTabela . 
-            "(nome, cpf, email, senha, perfil)
+            "(nome, cpf, email, senha, perfil, telefone)
              VALUES
-             (:nome, :cpf, :email, :senha, :perfil)
+             (:nome, :cpf, :email, :senha, :perfil, :telefone)
             ";
 
             // Prepara a query para ser executada
@@ -89,58 +98,103 @@
             $stmt->bindParam(":email", $this->email);
             $stmt->bindParam(":senha", password_hash($this->senha, PASSWORD_DEFAULT));
             $stmt->bindParam(":perfil", $this->perfil);
+            $stmt->bindParam(":telefone", $this->telefone);
 
             //Executa a query
             return $stmt->execute();
+
+            } catch (PDOException $e) {
+                $erro = $e->getMessage();
+                echo "Erro ao cadastrar usuário: " . $erro;
+            }
         }
 
         // Exibe todos os registros da tabela
         public function exibir(){
-            $query = "SELECT * FROM $this->nomeTabela;";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute();
-            $Allregisros = $stmt->fetchAll();
-            return $Allregisros;
+            try {
+                $query = "SELECT * FROM $this->nomeTabela;";
+                $stmt = $this->conn->prepare($query);
+                $stmt->execute();
+                $Allregisros = $stmt->fetchAll();
+                return $Allregisros;
+            } catch (PDOException $e) {
+                $erro = $e->getMessage();
+                echo "Erro ao buscar usuários: " . $erro;
+            }
+        }
+
+        // Exibe um usuario buscado por um ID especifico
+        public function buscaUsuarioId($id){
+            try {
+                // Define a query
+                $query = "SELECT * FROM $this->nomeTabela
+                WHERE id = :id;";
+
+                // Prepara a query para ser executada;
+                $stmt = $this->conn->prepare($query);
+
+                // Define a variavel na query
+                $stmt->bindParam(":id", $id);
+
+                // Executa a query
+                $stmt->execute();
+
+                // Tranforma o objeto retornado da query em um array com um unico item
+                $OnlyQuestao = $stmt->fetch();
+
+                // Retorna um unico registro
+                return $OnlyQuestao;
+            } catch (PDOException $e) {
+                $erro = $e->getMessage();
+                echo "Erro ao buscar o usuário: " . $erro;
+            }
         }
         
         // Realiza atualização em registro da tabela
         public function atualizar(){
-            // Define a query
-            $query = "UPDATE " . $this->nomeTabela .
-            " SET nome = :nome, cpf = :cpf, email = :email, senha = :senha, perfil = :perfil
-            WHERE id = :id";
+            try {
+                // Define a query
+                $query = "UPDATE " . $this->nomeTabela .
+                " SET nome = :nome, cpf = :cpf, email = :email, senha = :senha, perfil = :perfil, telefone = :telefone
+                WHERE id = :id";
 
-            // Prepara a query para ser executada
-            $stmt = $this->conn->prepare($query);
+                // Prepara a query para ser executada
+                $stmt = $this->conn->prepare($query);
 
-            // Define as variaveis na query
-            $stmt->bindParam(":nome", $this->nome);
-            $stmt->bindParam(":cpf", $this->cpf);
-            $stmt->bindParam(":email", $this->email);
-            $stmt->bindParam(":senha", password_hash($this->senha, PASSWORD_DEFAULT));
-            $stmt->bindParam(":perfil", $this->perfil);
+                // Define as variaveis na query
+                $stmt->bindParam(":nome", $this->nome);
+                $stmt->bindParam(":cpf", $this->cpf);
+                $stmt->bindParam(":email", $this->email);
+                $stmt->bindParam(":senha", password_hash($this->senha, PASSWORD_DEFAULT));
+                $stmt->bindParam(":perfil", $this->perfil);
+                $stmt->bindParam(":telefone", $this->telefone);
 
-            // Executa a query
-            return $stmt->execute();
+                // Executa a query
+                return $stmt->execute();
+            } catch (PDOException $e) {
+                $erro = $e->getMessage();
+                echo "Erro ao editar o usuário: " . $erro;
+            }
         }
 
         // Realiza a exclusão de um registro da tabela
         public function deletar(){
-            // Define a query
-            $query = "DELETE FROM " . $this->nomeTabela .
-            " WHERE id = :id";
+            try {
+                // Define a query
+                $query = "DELETE FROM " . $this->nomeTabela .
+                " WHERE id = :id";
 
-            // Prepara a query para ser executa
-            $stmt = $this->conn->prepare($query);
+                // Prepara a query para ser executa
+                $stmt = $this->conn->prepare($query);
 
-            // Define as variaveis na query
-            $stmt->bindParam(":id", $this->id);
+                // Define as variaveis na query
+                $stmt->bindParam(":id", $this->id);
 
-            // Executa a query
-            return $stmt->execute();
+                // Executa a query
+                return $stmt->execute();
+            } catch (PDOException $e) {
+                $erro = $e->getMessage();
+                echo "Erro ao excluir usuário: " . $erro;
+            }
         }
-        
-
-
-
     }
