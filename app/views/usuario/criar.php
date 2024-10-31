@@ -24,8 +24,11 @@
         <select name="perfil" id="perfil" required>
             <option value="">Selecione...</option>
             <?php 
-            
+                foreach ($perfis as $perfil) {
+                    echo "<option value='" . $perfil ."'>". $perfil ."</option>";
+                }
             ?>
         </select>
     </div>
+    <input type="submit" Value="Enviar">
 </form>

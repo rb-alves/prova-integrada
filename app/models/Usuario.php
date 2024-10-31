@@ -96,7 +96,7 @@
             $stmt->bindParam(":nome", $this->nome);
             $stmt->bindParam(":cpf", $this->cpf);
             $stmt->bindParam(":email", $this->email);
-            $stmt->bindParam(":senha", password_hash($this->senha, PASSWORD_DEFAULT));
+            $stmt->bindParam(":senha", $this->senha);
             $stmt->bindParam(":perfil", $this->perfil);
             $stmt->bindParam(":telefone", $this->telefone);
 
@@ -115,8 +115,8 @@
                 $query = "SELECT * FROM $this->nomeTabela;";
                 $stmt = $this->conn->prepare($query);
                 $stmt->execute();
-                $Allregisros = $stmt->fetchAll();
-                return $Allregisros;
+                $allRegisros = $stmt->fetchAll();
+                return $allRegisros;
             } catch (PDOException $e) {
                 $erro = $e->getMessage();
                 echo "Erro ao buscar usuários: " . $erro;
@@ -124,7 +124,7 @@
         }
 
         // Exibe um usuario buscado por um ID especifico
-        public function buscaUsuarioId($id){
+        public function buscaUsuarioID($id){
             try {
                 // Define a query
                 $query = "SELECT * FROM $this->nomeTabela
@@ -149,7 +149,34 @@
                 echo "Erro ao buscar o usuário: " . $erro;
             }
         }
-        
+
+        // Busca os tipos de perfil da coluna PERFIL que é um ENUM
+        public function pegaItemPerfil(){
+            // Define a query
+            $query = "SHOW COLUMNS FROM $this->nomeTabela LIKE 'perfil';";
+
+            // Prepara a query para ser executa
+            $stmt = $this->conn->prepare($query);
+
+            // Executa a query
+            $stmt->execute();
+
+             // Tranforma o objeto retornado da query em um array com um unico item
+            $linha = $stmt->fetch();
+
+            // Extrai os valores do ENUM
+            $tiposPerfil = [];
+            if ($linha) {
+                $type = $linha['Type'];
+                preg_match('/^enum\((.*)\)$/', $type, $matches);
+                $tiposPerfil = explode(',', str_replace("'", "", $matches[1]));
+            }
+            
+            // Retorna os tipos de perfil tratados
+            return $tiposPerfil;
+        }
+
+
         // Realiza atualização em registro da tabela
         public function atualizar(){
             try {
@@ -168,6 +195,7 @@
                 $stmt->bindParam(":senha", password_hash($this->senha, PASSWORD_DEFAULT));
                 $stmt->bindParam(":perfil", $this->perfil);
                 $stmt->bindParam(":telefone", $this->telefone);
+                $stmt->bindParam(":id", $this->id);
 
                 // Executa a query
                 return $stmt->execute();

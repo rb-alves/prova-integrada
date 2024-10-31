@@ -40,6 +40,7 @@
                 
                 // Retorna a lista de questões
                 header("Location: ../public/index.php");
+                exit();
             }else{
                 // Inclui o formulário de cadastro na pagina
                 include "../views/questao/criar.php";
@@ -71,7 +72,7 @@
 
                 // Retorna a lista de questões
                 header("Location: ../public/index.php");
-
+                exit();
             }else{
                 $questao = $this->questao->buscaQuestaoID($id);
                 include "../views/questao/editar.php";
@@ -90,6 +91,7 @@
 
                 // Retorna a lista de questões
                 header("Location: ../public/index.php");
+                exit();
             }else{
                 $questao = $this->questao->buscaQuestaoID($id);
                 include "../views/questao/deletar.php"; 
