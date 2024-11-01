@@ -1,6 +1,6 @@
 
 <div>
-    <a href="../public/index.php">Lista</a>
+    <a href="../public/index.php/controller=questao">Lista</a>
 </div>
 
 

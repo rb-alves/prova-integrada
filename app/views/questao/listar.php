@@ -1,6 +1,6 @@
 <h1>Lista de Questões</h1>
 
-<a href="../public/index.php?action=create">Cadastrar</a>
+<a href="../public/index.php?controller=questao&action=create">Cadastrar</a>
 
 <table>
     <thead>

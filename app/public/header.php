@@ -7,3 +7,6 @@
 </head>
 <body>
     <main>
+        <nav>
+            <a href="index.php">HOME</a>
+        </nav>

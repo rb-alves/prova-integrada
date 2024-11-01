@@ -11,8 +11,10 @@
     $controllerUsuario = new UsuarioController();
 
 
+   // Verifica se foi passado algum controller na url caso não será atribuido vazio para renderizar o home
+   $controller = isset($_GET["controller"]) ? $_GET["controller"] : "";
+
     // Verifica se algum action foi passado na URL caso não ele é definido como LIST por padrão
-   $controller = isset($_GET["controller"]) ? $_GET["controller"] : "questao";
    $action = isset($_GET["action"]) ? $_GET["action"]: "list";
 
 
@@ -101,7 +103,7 @@
             break;
             
         default:
-            # code...
+            include "../views/home.php";
             break;
     }
     

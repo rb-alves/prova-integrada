@@ -39,7 +39,7 @@
                 $this->questao->cadastrar();
                 
                 // Retorna a lista de questões
-                header("Location: ../public/index.php");
+                header("Location: ../public/index.php?controller=questao");
                 exit();
             }else{
                 // Inclui o formulário de cadastro na pagina
@@ -71,7 +71,7 @@
                 $this->questao->atualizar();
 
                 // Retorna a lista de questões
-                header("Location: ../public/index.php");
+                header("Location: ../public/index.php?controller=questao");
                 exit();
             }else{
                 $questao = $this->questao->buscaQuestaoID($id);
@@ -90,7 +90,7 @@
                 $this->questao->deletar();
 
                 // Retorna a lista de questões
-                header("Location: ../public/index.php");
+                header("Location: ../public/index.php?controller=questao");
                 exit();
             }else{
                 $questao = $this->questao->buscaQuestaoID($id);
