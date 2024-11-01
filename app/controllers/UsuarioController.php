@@ -30,7 +30,7 @@
                 $this->usuario->setEmail($_POST["email"]);
                 $this->usuario->setPerfil($_POST["perfil"]);
                 $this->usuario->setTelefone($_POST["telefone"]);
-                $this->usuario->setSenha($this->funcoes->gerarSenha($_POST["nome"], $_POST["cpf"]));
+                $this->usuario->setSenha(password_hash($this->funcoes->gerarSenha($_POST["nome"], $_POST["cpf"]), PASSWORD_DEFAULT));
 
                 // Chama o metodo CADASTRAR para armazenar os dados no banco de dados
                 $this->usuario->cadastrar();
@@ -39,9 +39,6 @@
                 header("Location: ../public/index.php?controller=usuario");
                 exit();
             }else{
-
-                // Chama o metodo de busca perfil
-                $perfis = $this->usuario->pegaItemPerfil();
 
                 // Inclui o formulário de cadastro na pagina
                 include "../views/usuario/criar.php";
@@ -59,15 +56,13 @@
                 $this->usuario->setNome($_POST["nome"]);
                 $this->usuario->setCPF($_POST["cpf"]);
                 $this->usuario->setEmail($_POST["email"]);
-                $this->usuario->setSenha($_POST["senha"]);
-                $this->usuario->setPerfil($_POST["perfil"]);
                 $this->usuario->setTelefone($_POST["telefone"]);
 
                 // Chama o metodo ATUALIZAR para armazenar os dados no banco de dados
                 $this->usuario->atualizar();
 
                 // Retorna para a lista de questões
-                header("Location: ../public/index.php");
+                header("Location: ../public/index.php?controller=usuario");
                 exit();
             }else {
                 $usuario = $this->usuario->buscaUsuarioID($id);
@@ -84,10 +79,10 @@
                 $usuario->deletar(); // Chama o metodo DELETAR para apagar o usuario do banco
 
                 // Retorna a pagina principal
-                header("Location: ../public/index.php");
+                header("Location: ../public/index.php?controller=usuario");
                 exit();
             } else {
-                $usuario = $this->usuario->buscaUsuarioID();
+                $usuario = $this->usuario->buscaUsuarioID($id);
                 include "../views/usuario/deletar.php";
             }
 

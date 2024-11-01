@@ -5,7 +5,7 @@
         // Define os atributos necessarios para ultlização do banco
         // O atributo com será responsável por armazenar a conexão quando houver
         private $host = "127.0.0.1";
-        private $port = "3307";
+        private $port = "3306";
         private $user = "root";
         private $password = "mdf@123!";
         private $dbname = "avaliacao_integrada";

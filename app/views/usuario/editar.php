@@ -13,17 +13,11 @@
     </div>
     <div>
         <label for="email">Email</label>
-        <input type="text" id="email" name="email" value="<?=$usuario['email']?>" required>
+        <input type="email" id="email" name="email" value="<?=$usuario['email']?>" required>
     </div>
     <div>
         <label for="telefone">Telefone</label>
         <input type="text" id="telefone" name="telefone" value="<?=$usuario['telefone']?>" required>
-    </div>
-    <div>
-        <label for="perfil">Perfil de Acesso</label>
-        <select name="perfil" id="perfil" required>
-            <option value="">Selecione...</option>
-        </select>
     </div>
     <input type="submit" Value="Enviar">
 </form>

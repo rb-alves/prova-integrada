@@ -39,6 +39,7 @@
                         <td>$perfil</td>
                         <td>
                             <a href='../public/index.php?controller=usuario&action=edit&id=".$id."'>Editar</a>
+                            <a href='../public/index.php?controller=usuario&action=del&id=".$id."'>Excluir</a>
                         </td>
                     </tr>
                     ";
