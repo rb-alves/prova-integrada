@@ -27,6 +27,7 @@
                     $telefone = $usuario["telefone"];
                     $senha = $usuario["senha"];
                     $perfil = $usuario["perfil"];
+                    $id = $usuario["id"];
 
                     echo "
                     <tr>
@@ -37,7 +38,7 @@
                         <td>$senha</td>
                         <td>$perfil</td>
                         <td>
-                            <a hred='../public/index.php?' ></a>
+                            <a href='../public/index.php?controller=usuario&action=edit&id=".$id."'>Editar</a>
                         </td>
                     </tr>
                     ";

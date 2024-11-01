@@ -30,7 +30,7 @@
                 $this->usuario->setEmail($_POST["email"]);
                 $this->usuario->setPerfil($_POST["perfil"]);
                 $this->usuario->setTelefone($_POST["telefone"]);
-                $this->usuario->setSenha(password_hash($this->funcoes->gerarSenha($_POST["nome"], $_POST["cpf"]), PASSWORD_DEFAULT));
+                $this->usuario->setSenha($this->funcoes->gerarSenha($_POST["nome"], $_POST["cpf"]));
 
                 // Chama o metodo CADASTRAR para armazenar os dados no banco de dados
                 $this->usuario->cadastrar();
@@ -70,7 +70,7 @@
                 header("Location: ../public/index.php");
                 exit();
             }else {
-                $usuario = $this->usuario->buscaUsuarioID();
+                $usuario = $this->usuario->buscaUsuarioID($id);
                 include "../views/usuario/editar.php";
             }
         }
